@@ -11,15 +11,17 @@
         ,{
             "path" : "pages/register/register",
             "style" : {}
-        }, {
-            "path" : "pages/register/reg_success",
-            "style" : {}
-        },{
+        }
+        ,{
             "path" : "pages/test/test",
             "style" : {}
         }
         ,{
             "path" : "pages/forget/forget",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/agreement/agreement",
             "style" : {}
         }
     ],

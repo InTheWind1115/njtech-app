@@ -1,7 +1,7 @@
 <template>
 	<view id="reg-suc">
 		<h2>注册成功</h2>
-		<image src="../../static/images/register/reg_succ.png" mode=""></image>
+		<image src="../../static/images/register/reg_succ.png" mode="" lazy-load></image>
 		<view class="enter">
 			进入校友
 		</view>
