@@ -20,6 +20,10 @@
             "path" : "pages/forget/forget",
             "style" : {}
         }
+        ,{
+            "path" : "pages/agreement/agreement",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
