@@ -109,5 +109,9 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "title" : "南工校友",
+        "domain" : "www.njtechmates.com"
     }
 }
