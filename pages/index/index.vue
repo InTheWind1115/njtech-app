@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 背景图片 -->
 		<image class="u-f-ajc"
 		:style="'height: ' + screenHeight + 'px!important;'"
@@ -8,10 +8,10 @@
 		lazy-load/>
 		<!-- 欢迎文字、提示文字 -->
 		<view class="index-welcome u-f-ajc">Welcome!</view>
-		<view class="index-tips u-f-ajc">欢迎使用校友app，请选择登录账号或注册账号。</view>
+		<!-- <view class="index-tips u-f-ajc">欢迎使用校友app，请选择登录账号或注册账号。</view> -->
 		<!-- 按钮部分 -->
-		<button class="index-btn" type="default" @tap="toLogin">登录</button>
-		<button class="index-btn" type="default" @tap="toRegister">注册</button>
+		<button class="index-btn index-btn-login" type="default" @tap="toLogin">登录</button>
+		<button class="index-btn index-btn-reg" type="default" @tap="toRegister">注册</button>
 	</view>
 </template>
 
@@ -44,6 +44,10 @@
 </script>
 
 <style>
+	.outer {
+		position: relative;
+	}
+	
 	image {
 		position: fixed;
 		top: 0;
@@ -55,20 +59,29 @@
 	.index-welcome {
 		color: #e6e3e3;
 		font-size: 125rpx;
-		margin-top: 60rpx;
+		padding-top: 60rpx;
 	}
 	
 	.index-tips {
 		color: #fff;
 		font-size: 25rpx;
-		margin-top: calc(75%);
+		padding-top: calc(75%);
 	}
 	
 	.index-btn {
+		position: absolute;
+		left: 155rpx;
 		width: 440rpx;
 		border-radius: 100rpx;
-		margin-top: 60rpx;
 		color: #00a0eb!important;
 		font-size: 36rpx;
+	}
+	
+	.index-btn-login {
+		bottom: 240rpx;
+	}
+	
+	.index-btn-reg {
+		bottom: 100rpx;
 	}
 </style>

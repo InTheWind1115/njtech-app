@@ -225,7 +225,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), style: _vm._$g(0, "s"), attrs: { _i: 0 } },
     [
       _c("v-uni-image", {
         staticClass: _vm._$g(1, "sc"),
@@ -240,14 +240,11 @@ var render = function() {
       _c("v-uni-view", { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } }, [
         _vm._v("Welcome!")
       ]),
-      _c("v-uni-view", { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } }, [
-        _vm._v("欢迎使用校友app，请选择登录账号或注册账号。")
-      ]),
       _c(
         "v-uni-button",
         {
-          staticClass: _vm._$g(4, "sc"),
-          attrs: { type: "default", _i: 4 },
+          staticClass: _vm._$g(3, "sc"),
+          attrs: { type: "default", _i: 3 },
           on: {
             click: function($event) {
               return _vm.$handleViewEvent($event)
@@ -259,8 +256,8 @@ var render = function() {
       _c(
         "v-uni-button",
         {
-          staticClass: _vm._$g(5, "sc"),
-          attrs: { type: "default", _i: 5 },
+          staticClass: _vm._$g(4, "sc"),
+          attrs: { type: "default", _i: 4 },
           on: {
             click: function($event) {
               return _vm.$handleViewEvent($event)
@@ -361,7 +358,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../ApplicationDataNotInstall/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nuni-image {\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tz-index: -1;\n\twidth: 750rpx;  /* 750rpx代表屏幕宽度 */\n}\n.index-welcome {\n\tcolor: #e6e3e3;\n\tfont-size: 125rpx;\n\tmargin-top: 60rpx;\n}\n.index-tips {\n\tcolor: #fff;\n\tfont-size: 25rpx;\n\tmargin-top: calc(75%);\n}\n.index-btn {\n\twidth: 440rpx;\n\tborder-radius: 100rpx;\n\tmargin-top: 60rpx;\n\tcolor: #00a0eb!important;\n\tfont-size: 36rpx;\n}\n", ""]);
+exports.push([module.i, "\n.outer {\n\tposition: relative;\n}\nuni-image {\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tz-index: -1;\n\twidth: 750rpx;  /* 750rpx代表屏幕宽度 */\n}\n.index-welcome {\n\tcolor: #e6e3e3;\n\tfont-size: 125rpx;\n\tpadding-top: 60rpx;\n}\n.index-tips {\n\tcolor: #fff;\n\tfont-size: 25rpx;\n\tpadding-top: calc(75%);\n}\n.index-btn {\n\tposition: absolute;\n\tleft: 155rpx;\n\twidth: 440rpx;\n\tborder-radius: 100rpx;\n\tcolor: #00a0eb!important;\n\tfont-size: 36rpx;\n}\n.index-btn-login {\n\tbottom: 240rpx;\n}\n.index-btn-reg {\n\tbottom: 100rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -984,7 +981,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), style: _vm._$g(0, "s"), attrs: { _i: 0 } },
     [
       _c("navbar-easy", { attrs: { _i: 1 } }),
       _c(
@@ -1401,7 +1398,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../ApplicationDataNotInstall/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 输入框样式部分 */\n.login-input {\n\twidth: 500rpx;\n\theight: 100rpx;\n\tpadding: 0 80rpx;\n\tmargin-bottom: 50rpx;\n\tborder-radius: 100rpx;\n\tbackground-color: #F9F9F9;\n\tfont-size: 32rpx;\n\tline-height: 100rpx;\n}\n.login-form>uni-view:first-child{  /* 类名为.login-form的标签下的第一个view需要更多margin-top */\n\tmargin-top: 200rpx;\n}\n.login-input-placeholder {  /* 某些输入框的placeholder样式 */\n\tcolor: #999B9C;\n}\n/* 输入框图标样式 */\n.login-input-group {\n\tposition: relative;\n}\n.login-input-icon {\n\tposition: absolute;\n\tleft: 30rpx;\n\ttop: 30rpx;\n\tfont-size: 40rpx;\n\tfont-weight: bold;\n\tcolor: #00A0EB;\n}\n/* 链接样式 */\n.login-forget {\n\tfont-size: 24rpx;\n\tcolor: #00A0EB;\n\tmargin-left: calc(95% - 4 * 24rpx);\n}\n/* 按钮样式 */\n.login-btn-submit-default {\n\tmargin-top: 200rpx;\n\tbackground-color: #00A0EB;\n\tcolor: #FFF;\n\tborder-radius: 100rpx;\n\theight: 100rpx;\n\tline-height: 100rpx;\n\tfont-size: 36rpx;\n}\n.login-btn-submit-selected {\n\tbackground-color: #0081BD;\n}\n.login-btn-submit-disabled {\n\tbackground-color: #B3E2F9!important;\n\tcolor: #FFF!important;\n}\n.login-btn-register-default {\n\twidth: 165rpx;\n\theight: 60rpx;\n\tline-height: 60rpx;\n\tmargin-top: 200rpx;\n\tcolor: #00A0EB;\n\tborder: 1rpx solid #00A0EB;\n\tbackground-color: #FFF;\n}\n.login-btn-register-selected {\n\tbackground-color: #F8F8F8;\n}\n", ""]);
+exports.push([module.i, "\n.outer {\n\tposition: relative;\n}\n\n/* 输入框样式部分 */\n.login-input {\n\twidth: 500rpx;\n\theight: 100rpx;\n\tpadding: 0 80rpx;\n\tmargin-bottom: 50rpx;\n\tborder-radius: 100rpx;\n\tbackground-color: #F9F9F9;\n\tfont-size: 32rpx;\n\tline-height: 100rpx;\n}\n.login-form>uni-view:first-child{  /* 类名为.login-form的标签下的第一个view需要更多margin-top */\n\tmargin-top: 200rpx;\n}\n.login-input-placeholder {  /* 某些输入框的placeholder样式 */\n\tcolor: #999B9C;\n}\n\n/* 输入框图标样式 */\n.login-input-group {\n\tposition: relative;\n}\n.login-input-icon {\n\tposition: absolute;\n\tleft: 30rpx;\n\ttop: 30rpx;\n\tfont-size: 40rpx;\n\tfont-weight: bold;\n\tcolor: #00A0EB;\n}\n\n/* 链接样式 */\n.login-forget {\n\tfont-size: 24rpx;\n\tcolor: #00A0EB;\n\tmargin-left: calc(95% - 4 * 24rpx);\n}\n\n/* 按钮样式 */\n.login-btn-submit-default {\n\tmargin-top: 200rpx;\n\tbackground-color: #00A0EB;\n\tcolor: #FFF;\n\tborder-radius: 100rpx;\n\theight: 100rpx;\n\tline-height: 100rpx;\n\tfont-size: 36rpx;\n}\n.login-btn-submit-selected {\n\tbackground-color: #0081BD;\n}\n.login-btn-submit-disabled {\n\tbackground-color: #B3E2F9!important;\n\tcolor: #FFF!important;\n}\n.login-btn-register-default {\n\tposition: absolute;\n\tleft: 292rpx;\n\tbottom: 100rpx;\n\twidth: 166rpx;\n\theight: 60rpx;\n\tline-height: 60rpx;\n\tcolor: #00A0EB;\n\tborder: 1rpx solid #00A0EB;\n\tbackground-color: #FFF;\n}\n.login-btn-register-selected {\n\tbackground-color: #F8F8F8;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1488,7 +1485,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), style: _vm._$g(0, "s"), attrs: { _i: 0 } },
     [
       _c("navbar-easy", { attrs: { _i: 1 } }),
       _c(
@@ -1657,6 +1654,7 @@ var render = function() {
                 "v-uni-view",
                 {
                   staticClass: _vm._$g(24, "sc"),
+                  class: _vm._$g(24, "c"),
                   attrs: { id: "getCode", _i: 24 },
                   on: {
                     click: function($event) {
@@ -1664,7 +1662,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("获取验证码")]
+                [_vm._v(_vm._$g(24, "t0-0"))]
               )
             ],
             1
@@ -1806,7 +1804,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../ApplicationDataNotInstall/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.inlineBlock {\n\tdisplay: inline-block;\n}\n#name,\n#id,\n#psw,\n#confirm,\n#phoneNum,\n#graphCode,\n#messCode {\n\tposition: relative;\n\twidth: 650rpx;\n\theight: 80rpx;\n\tbackground-color: #f9f9f9;\n\tmargin: 30rpx auto;\n\tborder-radius: 40rpx;\n}\n.regFont {\n\tpadding-left: 30rpx;\n\tfont-size: 30rpx!important;\n\tline-height: 80rpx;\n\tcolor: #5b5c5d;\n}\n.regInput {\n\tposition: absolute;\n\tborder: 0rpx;\n\theight: 30rpx;\n\ttop: 50%;\n\tmargin-top: -22rpx;\n\tfont-size: 30rpx;\n}\n#getCode {\n\tposition: absolute;\n\tbackground-color: #00a0eb;\n\theight: 40rpx;\n\twidth: 160rpx;\n\ttop: 50%;\n\tright: 20rpx;\n\tmargin-top: -20rpx;\n\tborder-radius: 20rpx;\n\tfont-size: 25rpx;\n\ttext-align: center;\n\tline-height: 40rpx;\n\tcolor: #ffffff;\n\tfont-weight: 700;\n}\n#agreement {\n\twidth: 650rpx;\n\theight: 80rpx;\n\tmargin: 10rpx auto;\n\tfont-weight: 700;\n\tfont-size: 20rpx;\n}\n.next-default {\n\twidth: 600rpx;\n\theight: 100rpx;\n\tbackground-color: #00A0EB!important;\n\tmargin: 20px auto;\n\tborder-radius: 50rpx;\n\tcolor: #FFFFFF!important;\n\tfont-weight: 700;\n\tfont-size: 20rpx;\n\ttext-align: center;\n\tfont-size: 50rpx;\n\tline-height: 100rpx;\n}\n.next-disabled {\n\tbackground-color: #B3E2F9!important;\n}\n.next-selected {\n\tbackground-color: #0081BD!important;\n}\n", ""]);
+exports.push([module.i, "\n.inlineBlock {\n\tdisplay: inline-block;\n}\n#name,\n#id,\n#psw,\n#confirm,\n#phoneNum,\n#graphCode,\n#messCode {\n\tposition: relative;\n\twidth: 650rpx;\n\theight: 80rpx;\n\tbackground-color: #f9f9f9;\n\tmargin: 30rpx auto;\n\tborder-radius: 40rpx;\n}\n.regFont {\n\tpadding-left: 30rpx;\n\tfont-size: 30rpx !important;\n\tline-height: 80rpx;\n\tcolor: #5b5c5d;\n}\n.regInput {\n\tposition: absolute;\n\tborder: 0rpx;\n\theight: 30rpx;\n\ttop: 50%;\n\tmargin-top: -22rpx;\n\tfont-size: 30rpx;\n}\n#getCode {\n\tposition: absolute;\n\tbackground-color: #00a0eb;\n\theight: 40rpx;\n\twidth: 160rpx;\n\ttop: 50%;\n\tright: 20rpx;\n\tmargin-top: -20rpx;\n\tborder-radius: 20rpx;\n\tfont-size: 25rpx;\n\ttext-align: center;\n\tline-height: 40rpx;\n\tcolor: #ffffff;\n\tfont-weight: 700;\n}\n#agreement {\n\twidth: 650rpx;\n\theight: 80rpx;\n\tmargin: 10rpx auto;\n\tfont-weight: 700;\n\tfont-size: 20rpx;\n}\n.next-default {\n\twidth: 600rpx;\n\theight: 100rpx;\n\tbackground-color: #00A0EB !important;\n\tpadding: 20px auto;\n\tborder-radius: 50rpx;\n\tcolor: #FFFFFF !important;\n\tfont-weight: 700;\n\tfont-size: 20rpx;\n\ttext-align: center;\n\tfont-size: 50rpx;\n\tline-height: 100rpx;\n}\n.next-disabled {\n\tbackground-color: #B3E2F9 !important;\n}\n.next-selected {\n\tbackground-color: #0081BD !important;\n}\n.getCodeSelected {\n\tbackground-color: #B3E2F9 !important;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

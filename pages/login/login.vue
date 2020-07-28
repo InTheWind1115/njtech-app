@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 导航栏 -->
 		<navbar-easy text="登录"></navbar-easy>
 		<!-- 表单部分 -->
@@ -54,7 +54,8 @@
 				user: '',
 				psw: '',
 				disabled: true,
-				loading: false
+				loading: false,
+				screenHeight: ''  // 屏幕高度（单位px）
 			}
 		},
 		watch: {
@@ -127,11 +128,19 @@
 				//     主要包括：用户名存在性检查、密码正确性检查、上传登录记录
 				// ...（待完善）
 			},
+		},
+		onLoad() {
+			// 获取屏幕高度
+			this.screenHeight = uni.getSystemInfoSync().windowHeight;
 		}
 	}
 </script>
 
 <style>
+	.outer {
+		position: relative;
+	}
+	
 	/* 输入框样式部分 */
 	.login-input {
 		width: 500rpx;
@@ -188,10 +197,12 @@
 		color: #FFF!important;
 	}
 	.login-btn-register-default {
-		width: 165rpx;
+		position: absolute;
+		left: 292rpx;
+		bottom: 100rpx;
+		width: 166rpx;
 		height: 60rpx;
 		line-height: 60rpx;
-		margin-top: 200rpx;
 		color: #00A0EB;
 		border: 1rpx solid #00A0EB;
 		background-color: #FFF;

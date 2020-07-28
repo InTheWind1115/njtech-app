@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 导航栏 -->
 		<navbar-easy text="注册"></navbar-easy>
 
@@ -97,7 +97,9 @@
 				picnum: "",
 				textnum: "",
 				disabled: true,
-				loading: false
+				loading: false,
+				
+				screenHeight: ''  // 屏幕高度（单位px）
 			}
 		},
 		watch: {
@@ -269,7 +271,10 @@
 				// ...（待完善）
 			}
 		},
-		onShow() {}
+		onLoad() {
+			// 获取屏幕高度
+			this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		}
 	}
 </script>
 
@@ -337,7 +342,7 @@
 		width: 600rpx;
 		height: 100rpx;
 		background-color: #00A0EB !important;
-		margin: 20px auto;
+		padding: 20px auto;
 		border-radius: 50rpx;
 		color: #FFFFFF !important;
 		font-weight: 700;
