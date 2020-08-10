@@ -1,4 +1,3 @@
-<!-- 校友APP用户协议 -->
 <template>
 	<view>
 		<navbar-easy text="校友APP用户协议"></navbar-easy>
@@ -6,7 +5,7 @@
 </template>
 
 <script>
-	import navbarEasy from "../../components/common/navbar-easy.vue";
+	import navbarEasy from "../../components/navbar-easy.vue";
 	
 	export default {
 		// 注册组件

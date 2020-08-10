@@ -1,4 +1,3 @@
-<!-- 初始（欢迎） -->
 <template>
 	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 背景图片 -->

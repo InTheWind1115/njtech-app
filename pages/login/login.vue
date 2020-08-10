@@ -1,4 +1,3 @@
-<!-- 登录 -->
 <template>
 	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 导航栏 -->
@@ -25,7 +24,7 @@
 					placeholder-class="login-input-placeholder"/>
 				</view>
 				<view class="login-forget"
-				@tap="navToForget">忘记密码</view>
+				@tap="toForget">忘记密码</view>
 				<button class="login-btn-submit-default"
 				hover-class="login-btn-submit-selected"
 				hover-start-time="0"
@@ -38,12 +37,12 @@
 		<!-- 注册页跳转按钮 -->
 		<button class="login-btn-register-default"
 		hover-class="login-btn-register-selected"
-		@tap="redToRegister">注册</button>
+		@tap="toRegister">注册</button>
 	</view>
 </template>
 
 <script>
-	import navbarEasy from "../../components/common/navbar-easy.vue";
+	import navbarEasy from "../../components/navbar-easy.vue";
 	
 	export default {
 		// 注册组件
@@ -52,11 +51,6 @@
 		},
 		data() {
 			return {
-				baseUrl: 'http://202.119.245.23/api-dev/v3',
-				url: {
-					sysLogin: '/sys/login'
-				},
-				
 				user: '',
 				psw: '',
 				disabled: true,
@@ -74,24 +68,14 @@
 		},
 		methods: {
 			// 页面跳转
-			navToForget() {
+			toForget() {
 				uni.navigateTo({
 					url: '../forget/forget'
 				});
 			},
-			navToPersonalCenter() {
+			toRegister() {
 				uni.navigateTo({
-					url: '../personal_center/personal_center'
-				});
-			},
-			redToRegister() {
-				uni.redirectTo({
 					url: '../register/register'
-				});
-			},
-			redToPersonalCenter() {
-				uni.redirectTo({
-					url: '../personal_center/personal_center'
 				});
 			},
 			// 表单初始化
@@ -139,42 +123,10 @@
 					that.disabled = false;  // 可以点击
 					return;
 				}
-				var logUser = that.user;
-				var password = that.psw;
+				
 				// 逻辑验证、数据互通
-				uni.request({
-					url: that.baseUrl + that.url.sysLogin,
-					method: 'POST',
-					data: {
-						logUserName: logUser,
-						password: password
-					},
-					header: {
-						'content-type': 'application/x-www-form-urlencoded'
-					},
-					success: res => {
-						console.log(res.data);
-						if (res.data.success) {
-							uni.showToast({
-								title: res.data.message,
-								icon: 'none'
-							});
-							if (res.data.message === '登录成功') {  // 登录成功
-								that.redToPersonalCenter();
-							}
-						} else {
-							uni.showToast({
-								title: '请求失败',
-								icon: 'none'
-							});
-						}
-					}
-				});
-				
-				that.loading = false;  // 加载完毕
-				that.psw = '';  // 清空密码
-				that.disabled = false;  // 不能点击
-				
+				//     主要包括：用户名存在性检查、密码正确性检查、上传登录记录
+				// ...（待完善）
 			},
 		},
 		onLoad() {
