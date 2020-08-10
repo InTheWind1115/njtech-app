@@ -13,6 +13,10 @@
             "style" : {}
         }
         ,{
+            "path" : "pages/register_succ/register_succ",
+            "style" : {}
+        }
+        ,{
             "path" : "pages/test/test",
             "style" : {}
         }
@@ -22,6 +26,30 @@
         }
         ,{
             "path" : "pages/agreement/agreement",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/personal_center/personal_center",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/certificate/certificate",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/archive/archive",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/alumnus_my/alumnus_my",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/alumnus_rec/alumnus_rec",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/deal_record/deal_record",
             "style" : {}
         }
     ],

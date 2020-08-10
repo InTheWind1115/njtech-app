@@ -1,3 +1,4 @@
+<!-- 注册 -->
 <template>
 	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		<!-- 导航栏 -->
@@ -45,6 +46,8 @@
 				</view>
 
 				<input class='inlineBlock regInput' type="text" v-model="picnum" />
+				
+				<image id="codeimg" class="inlineBlock" :src="imgurl" mode="aspectFit" lazy-load @tap="codeimgChange"></image>
 			</view>
 			<view id="messCode">
 				<view class="inlineBlock regFont">
@@ -61,7 +64,7 @@
 
 		<view id="agreement">
 			<text>注册即表示同意</text>
-			<text style="color: #00a0eb;" @tap="toAgreement">《校友APP用户协议》</text>
+			<text style="color: #00a0eb;" @tap="navToAgreement">《校友APP用户协议》</text>
 		</view>
 
 		<button class="next-default" hover-class="next-selected" hover-start-time="0" :class="{'next-disabled': disabled}"
@@ -73,7 +76,7 @@
 </template>
 
 <script>
-	import navbarEasy from "../../components/navbar-easy.vue";
+	import navbarEasy from "../../components/common/navbar-easy.vue";
 
 	export default {
 		// 注册组件
@@ -82,9 +85,17 @@
 		},
 		data() {
 			return {
-				getCodeSelected: false,
+				baseUrl: 'http://202.119.245.23/api-dev/v3',
+				url: {
+					regCheckImgCode: '/reg/checkVerificationCode',
+					regGetImgCode: '/reg/defaultKaptcha',
+					regRegister: '/reg/register',
+					regGetPhoneCode: '/sendSms/send'  // 可能需要与手机号有关：/sendSms/send/{phoneNumber}
+				},
+				
+				getCodeSelected: true,
 				message: "获取验证码",
-				codeFlag: true, //判断能否获取验证码
+				codeFlag: false, //判断能否获取验证码
 				count: 59, //用来倒计时，当获取一次验证码，60s后可获取第二次
 				button: null,
 
@@ -98,7 +109,9 @@
 				textnum: "",
 				disabled: true,
 				loading: false,
+				imgurl: '',
 				
+				// 手机信息（尺寸）
 				screenHeight: ''  // 屏幕高度（单位px）
 			}
 		},
@@ -117,6 +130,17 @@
 			},
 			phonenum(val) {
 				this.buttonChange();
+				// 如果没有开始倒计时，进行手机号规范性检验
+				var re = new RegExp(/^1\d{10}$/);
+				if (this.count === 59) {
+					if (!re.test(this.phonenum)) {
+						this.codeFlag = false;
+						this.getCodeSelected = true;
+						return;
+					}
+					this.codeFlag = true;
+					this.getCodeSelected = false;
+				}
 			},
 			picnum(val) {
 				this.buttonChange();
@@ -131,7 +155,7 @@
 					this.getCodeSelected = true
 					this.message = '60s...'
 					this.codeFlag = false
-
+					// 倒计时模块
 					let timeCount = setInterval(() => {
 						this.message = this.count + 's...'
 						this.count--
@@ -143,6 +167,34 @@
 							clearInterval(timeCount)
 						}
 					}, 1000)
+					
+					// 发送验证码
+					var that = this;
+					var phoneNumber = that.phonenum;
+					uni.request({
+						url: that.baseUrl + that.url.regGetPhoneCode + '/' + phoneNumber,
+						method: 'GET',
+						data: {
+							phoneNumber: phoneNumber
+						},
+						success: res => {
+							// console.log(res.data);  // 观察验证码
+							if (res.data.success) {
+								uni.showToast({
+									title: '验证码' + new RegExp(/.*\d(.*)/).exec(res.data.message)[1],  // 根据后端数据改写
+									icon: 'none'
+								});
+							} else {
+								uni.showToast({
+									title: '请求失败',
+									icon: 'none'
+								});
+								this.getCodeSelected = false;
+								this.message = '获取验证码';
+								this.codeFlag = true;
+							}
+						}
+					});
 
 				}
 				// this.getCodeSelected = true
@@ -163,8 +215,12 @@
 				// 	}, 1000)
 				// }
 			},
+			// 验证码切换
+			codeimgChange() {
+				this.imgurl = this.baseUrl + this.url.regGetImgCode + '?_t=' + new Date().getTime();
+			},
 			// 页面跳转
-			toAgreement() {
+			navToAgreement() {
 				uni.navigateTo({
 					url: '../agreement/agreement'
 				});
@@ -181,7 +237,7 @@
 			},
 			// 输入框变化后处理
 			buttonChange() {
-				if (this.name && this.sid && this.psw && this.psw_conf && this.phonenum && (this.picnum || this.textnum)) {
+				if (this.name && this.sid && this.psw && this.psw_conf && this.phonenum && this.picnum && this.textnum) {
 					this.disabled = false;
 					return;
 				}
@@ -225,9 +281,16 @@
 					});
 					return false;
 				}
-				if ((!this.picnum || this.picnum === "") && (!this.textnum || this.textnum === "")) {
+				if (!this.picnum || this.picnum === "") {
 					uni.showToast({
-						title: '验证码不能为空',
+						title: '图形验证码不能为空',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!this.textnum || this.textnum === "") {
+					uni.showToast({
+						title: '短信验证码不能为空',
 						icon: 'none'
 					});
 					return false;
@@ -241,7 +304,7 @@
 					return false;
 				}
 				// 手机号规范性检验
-				let re = new RegExp(/^1[34578]\d{9}$/);
+				var re = new RegExp(/^1\d{10}$/);
 				if (!re.test(this.phonenum)) {
 					uni.showToast({
 						title: '请输入正确的11位手机号',
@@ -265,15 +328,62 @@
 					that.disabled = false; // 可以点击
 					return;
 				}
-
-				// 逻辑验证、数据互通
-				//     主要包括：用户名存在性检查、
-				// ...（待完善）
+				
+				// 上传数据
+				var password = that.psw;
+				var realName = that.name;
+				var smsCode = that.textnum;
+				var studentId = that.sid;
+				var telephone = that.phonenum;
+				var verificationCode = that.picnum;
+				uni.request({
+					url: that.baseUrl + that.url.regRegister,
+					method: 'POST',
+					data: {
+						password: password,
+						realName: realName,
+						smsCode: smsCode,
+						studentId: studentId,
+						telephone: telephone,
+						verificationCode: verificationCode
+					},
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					success: res => {
+						console.log(res.data);
+						if (res.data.success) {
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							});
+							that.picnum = '';
+							that.codeimgChange();
+							that.loading = false; // 加载完毕
+							that.disabled = true; // 不能点击
+							if (res.data.result !== 0) {  // 注册成功
+								uni.redirectTo({
+									url: '../register_succ/register_succ'
+								});
+							}
+						} else {
+							uni.showToast({
+								title: '请求失败',
+								icon: 'none'
+							});
+						}
+					}
+				});
+				
 			}
 		},
 		onLoad() {
 			// 获取屏幕高度
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		},
+		onShow() {
+			// 获取一张初始的图片验证码
+			this.codeimgChange();
 		}
 	}
 </script>
@@ -320,7 +430,7 @@
 		height: 40rpx;
 		width: 160rpx;
 		top: 50%;
-		right: 20rpx;
+		right: 30rpx;
 		margin-top: -20rpx;
 		border-radius: 20rpx;
 		font-size: 25rpx;
@@ -362,5 +472,16 @@
 
 	.getCodeSelected {
 		background-color: #B3E2F9 !important;
+	}
+	
+	#codeimg {
+		position: absolute;
+		width: 160rpx;
+		height: 60rpx;
+		top: 50%;
+		right: 30rpx;
+		margin-top: -30rpx;
+		text-align: center;
+		line-height: 60rpx;
 	}
 </style>

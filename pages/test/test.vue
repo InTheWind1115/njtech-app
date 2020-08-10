@@ -1,3 +1,4 @@
+<!-- 测试前后端环境 -->
 <template>
 	<view>
 		<button type="primary" @tap="testGetStringData">获取字符串数据测试</button>

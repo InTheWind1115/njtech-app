@@ -1,7 +1,7 @@
-<!-- 忘记密码 -->
+<!-- 学籍认证 -->
 <template>
 	<view>
-		<navbar-easy text="找回密码"></navbar-easy>
+		<navbar-easy text="学籍认证"></navbar-easy>
 	</view>
 </template>
 
