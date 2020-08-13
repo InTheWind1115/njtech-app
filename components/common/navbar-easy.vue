@@ -8,7 +8,7 @@
 			@tap="back"></view> -->
 			
 			<!-- 文字返回按钮 -->
-			<button class="nav-btn-default"
+			<button class="nav-btn-default u-f-ajc"
 			type="default"
 			@tap="back">
 				返回

@@ -30,7 +30,12 @@
         }
         ,{
             "path" : "pages/personal_center/personal_center",
-            "style" : {}
+            "style" : {
+				"app-plus": {
+					// 允许回弹效果
+					"bounce": "vertical"
+				}
+			}
         }
         ,{
             "path" : "pages/certificate/certificate",

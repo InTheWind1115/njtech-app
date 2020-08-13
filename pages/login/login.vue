@@ -36,7 +36,7 @@
 			</view>
 		</form>
 		<!-- 注册页跳转按钮 -->
-		<button class="login-btn-register-default"
+		<button class="login-btn-register-default u-f-ajc"
 		hover-class="login-btn-register-selected"
 		@tap="redToRegister">注册</button>
 	</view>
@@ -61,7 +61,7 @@
 				psw: '',
 				disabled: true,
 				loading: false,
-				screenHeight: ''  // 屏幕高度（单位px）
+				screenHeight: 0  // 屏幕高度（单位px）
 			}
 		},
 		watch: {
@@ -128,13 +128,12 @@
 			// 表单提交
 			loginSubmit() {
 				var that = this;
-				var succ = false;  // 标记登录是否成功
 				
 				that.loading = true;  // 正在加载
 				that.disabled = true;  // 不能点击
 				
 				// 格式有误（loginCheck中会进行相应格式提示）
-				if (!this.loginCheck()) {
+				if (!that.loginCheck()) {
 					that.loading = false;  // 加载完毕
 					that.disabled = false;  // 可以点击
 					return;
@@ -153,7 +152,6 @@
 						'content-type': 'application/x-www-form-urlencoded'
 					},
 					success: res => {
-						console.log(res.data);
 						if (res.data.success) {
 							uni.showToast({
 								title: res.data.message,
@@ -173,7 +171,7 @@
 				
 				that.loading = false;  // 加载完毕
 				that.psw = '';  // 清空密码
-				that.disabled = false;  // 不能点击
+				that.disabled = true;  // 不能点击
 				
 			},
 		},
@@ -214,7 +212,7 @@
 	.login-input-icon {
 		position: absolute;
 		left: 30rpx;
-		top: 30rpx;
+		top: 20rpx;
 		font-size: 40rpx;
 		font-weight: bold;
 		color: #00A0EB;

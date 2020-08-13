@@ -1,5 +1,5 @@
 /* flex布局的公共样式 */
-.u-f, .u-f-ac, .u-f-ajc, .u-f-jsb {
+.u-f, .u-f-ac, .u-f-ajc, .u-f-jsb, .u-f-aj {
 	display: flex;
 }
 
@@ -7,7 +7,7 @@
 	align-items: center;
 }
 
-.u-f-ajc {
+.u-f-ajc, .u-f-aj {
 	justify-content: center;
 }
 
