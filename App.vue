@@ -12,7 +12,7 @@
 			})
 			this.$store.commit('setWidth', windowW)
 			this.$store.commit('setHeight', windowH)
-			console.log(this.$store.state.windowWidth)
+			// console.log(this.$store.state.windowWidth)
 		},
 		onShow: function() {
 			console.log('App Show')

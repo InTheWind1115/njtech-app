@@ -103,7 +103,7 @@
 				this.buttonChange();
 			},
 			college(val) {
-				// 如果选择了学院列表中的某一项，则去请求该学院的专业信息加入数组
+				// 如果选择了学院列表中的某一项，则去请求该学院的专业信息加入数组，并调整空查找提示
 				if (this.collegeCand.indexOf(val) > -1) {
 					this.majorCand = [
 						'模拟请求获取到的专业1',
@@ -111,14 +111,16 @@
 						'模拟请求获取到的专业3',
 						'模拟请求获取到的专业4'
 					];
+					this.majorEmpty = "无匹配项";
 				} else {
 					this.majorCand = [];
 					this.clazzCand = [];
+					this.majorEmpty = "请先选择院系";
 				}
 				this.buttonChange();
 			},
 			major(val) {
-				// 如果选择了专业列表中的某一项，则去请求该学院的专业信息加入数组
+				// 如果选择了专业列表中的某一项，则去请求该学院的专业信息加入数组，并调整空查找提示
 				if (this.majorCand.indexOf(val) > -1) {
 					this.clazzCand = [
 						'模拟请求获取到的班级1',
@@ -126,8 +128,11 @@
 						'模拟请求获取到的班级3',
 						'模拟请求获取到的班级4'
 					];
+					this.clazzEmpty = "无匹配项";
+					
 				} else {
 					this.clazzCand = [];
+					this.clazzEmpty = "请先选择专业";
 				}
 				this.buttonChange();
 			},
