@@ -34,8 +34,8 @@
 			<view class="user-base-1 u-f-jsb u-f-ac">
 				<!-- 头像 -->
 				<view class="user-base-head u-f-ajc">
-					<image class="user-base-head-img" :src="user.headImgUrl" mode="aspectFit" lazy-load=""></image>
-					<view class="user-base-head-shot u-f-ajc icon iconfont icon-xiangji" @tap="cameraHead"></view>
+					<image class="user-base-head-img" :src="user.headImgUrl" mode="scaleToFill" lazy-load=""></image>
+					<view class="user-base-head-shot u-f-ajc icon iconfont icon-xiangji" @tap="chooseImage"></view>
 				</view>
 				<!-- 动态、照片等数字数据 -->
 				<block v-for="(item, index) in user.nums_base_data" :key="index">
@@ -95,7 +95,8 @@
 			<swiper-tab-head :tabBars="tabBars" :tabIndex="tabIndex" @tabtap="tabtap"></swiper-tab-head>
 			
 			<!-- 分享栏的内容栏 -->
-			<view class="uni-tab-bar">
+			<view class="uni-tab-bar" @touchstart="scrollToBottom">
+			<!-- <view class="uni-tab-bar"> -->
 				<swiper class="swiper-box"
 				:style="{height: (screenHeight) - rpx2px(230) + 'px'}"
 				:current="tabIndex"
@@ -161,11 +162,23 @@
 </template>
 
 <script>
-	import uniPopup from "@/components/uni-popup/uni-popup.vue";
-	import uniGrid from "@/components/uni-grid/uni-grid.vue";
-	import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue";
-	import swiperTabHead from "../../components/common/swiper-tab-head.vue";
-	import loadMore from "../../components/common/load-more.vue";
+	import uniPopup from "@/components/uni-popup/uni-popup.vue"
+	import uniGrid from "@/components/uni-grid/uni-grid.vue"
+	import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
+	import swiperTabHead from "../../components/common/swiper-tab-head.vue"
+	import loadMore from "../../components/common/load-more.vue"
+	import permision from "@/common/permission.js"
+	
+	var sourceType = [
+		['camera'],
+		['album'],
+		['camera', 'album']
+	]
+	var sizeType = [
+		['compressed'],
+		['original'],
+		['compressed', 'original']
+	]
 	
 	export default {
 		components: {
@@ -177,19 +190,22 @@
 		},
 		data() {
 			return {
+				// 上传图片组件
+				imageList: [],
+				sourceTypeIndex: 2,
+				sourceType: ['拍照', '相册', '拍照或相册'],
+				sizeTypeIndex: 2,
+				sizeType: ['压缩', '原图', '压缩或原图'],
+				countIndex: 0,
+				count: [1],
+				
+				// tips类
 				pop_tips: ['选项1', '选项2', '……', '选项n'],
 				btn_data: [
 					['个人档案', '../../static/images/personal_center/per_archives.jpg'],
 					['交易明细', '../../static/images/personal_center/per_deal.jpg'],
 					['我的校友', '../../static/images/personal_center/per_sch_my.jpg'],
 					['推荐校友', '../../static/images/personal_center/per_sch_rec.jpg']
-				],
-				
-				tabIndex: 1,
-				tabBars: [
-					{name: "动态", id: "dynamic"},
-					{name: "照片", id: "pics"},
-					{name: "视频", id: "videos"}
 				],
 				loadTexts1: '上拉加载更多动态',  // 很坑的地方在于用数组会导致页面无法实时更新
 				loadTexts2:	'上拉加载更多照片',
@@ -200,6 +216,15 @@
 					'视频'
 				],
 				
+				// 滚动导航栏相关
+				tabIndex: 1,
+				tabBars: [
+					{name: "动态", id: "dynamic"},
+					{name: "照片", id: "pics"},
+					{name: "视频", id: "videos"}
+				],
+				
+				// 用户数据
 				user: {
 					headImgUrl: '../../static/images/personal_center/user-default.jpg',
 					nums_base_data: [ 
@@ -246,8 +271,13 @@
 					]
 				},
 				
+				// 自动滚动
+				scrollFlag: false,
+				
+				// 仅测试、模拟
 				testFlags: [ 0, 0, 0 ],
 				
+				// 屏幕尺寸
 				screenWidth: 0,  // 屏幕宽度（单位px）
 				screenHeight: 0  // 屏幕高度（单位px）
 			}
@@ -303,18 +333,94 @@
 			},
 			clickMore(index) {
 				// 根据index完成相应选项的功能【index从0开始】
-				// （功能待定）
-				// （功能待定）
-				// （功能待定）
+				/// （功能待定）
 				
 				// 关闭弹出框
 				this.$refs.popup.close();
 			},
-			// 呼叫相机
-			cameraHead() {
-				/// （待完善）
-				/// （待完善）
-				/// （待完善）
+			// 上传图片组件
+			chooseImage: async function() {
+				// #ifdef APP-PLUS
+				// TODO 选择相机或相册时 需要弹出actionsheet，目前无法获得是相机还是相册，在失败回调中处理
+				if (this.sourceTypeIndex !== 2) {
+					let status = await this.checkPermission();
+					if (status !== 1) {
+						return;
+					}
+				}
+				// #endif
+
+				uni.chooseImage({
+					sourceType: sourceType[this.sourceTypeIndex],
+					sizeType: sizeType[this.sizeTypeIndex],
+					count: 1,
+					success: (res) => {
+						this.imageList = [];
+						this.imageList = this.imageList.concat(res.tempFilePaths);
+						this.user.headImgUrl = this.imageList[0];
+						// 将新头像上传云端
+						/// （待完善）
+					},
+					fail: (err) => {
+						// #ifdef APP-PLUS
+						if (err['code'] && err.code !== 0 && this.sourceTypeIndex === 2) {
+							this.checkPermission(err.code);
+						}
+						// #endif
+						// #ifdef MP
+						uni.getSetting({
+							success: (res) => {
+								let authStatus = false;
+								switch (this.sourceTypeIndex) {
+									case 0:
+										authStatus = res.authSetting['scope.camera'];
+										break;
+									case 1:
+										authStatus = res.authSetting['scope.album'];
+										break;
+									case 2:
+										authStatus = res.authSetting['scope.album'] && res.authSetting['scope.camera'];
+										break;
+									default:
+										break;
+								}
+								if (!authStatus) {
+									uni.showModal({
+										title: '授权失败',
+										content: 'njtech-app需要从您的相机或相册获取图片，请在设置界面打开相关权限',
+										success: (res) => {
+											if (res.confirm) {
+												uni.openSetting()
+											}
+										}
+									})
+								}
+							}
+						})
+						// #endif
+					}
+				})
+			},
+			async checkPermission(code) {
+				let type = code ? code - 1 : this.sourceTypeIndex;
+				let status = permision.isIOS ? await permision.requestIOS(sourceType[type][0]) :
+					await permision.requestAndroid(type === 0 ? 'android.permission.CAMERA' :
+						'android.permission.READ_EXTERNAL_STORAGE');
+
+				if (status === null || status === 1) {
+					status = 1;
+				} else {
+					uni.showModal({
+						content: "没有开启权限",
+						confirmText: "设置",
+						success: function(res) {
+							if (res.confirm) {
+								permision.gotoAppSetting();
+							}
+						}
+					})
+				}
+				return status;
 			},
 			// 中间按钮栏响应函数
 			btnResponse(index) {
@@ -356,9 +462,7 @@
 					return;
 				}
 				// 模拟请求数据
-				// （仅模拟，待完善）
-				// （仅模拟，待完善）
-				// （仅模拟，待完善）
+				/// （仅模拟，待完善）
 				
 				// 修改状态为“加载中”
 				if (this.tabIndex === 0) {
@@ -414,13 +518,26 @@
 						this.loadTexts3 = '上拉加载更多' + this.loadTextsTips[this.tabIndex];
 					}
 				}, 700);
+			},
+			scrollToBottom() {
+				if (!this.scrollFlag) {
+					this.scrollFlag = true
+					uni.pageScrollTo({
+						scrollTop: this.screenHeight,
+						duration: 300
+					});
+				}
 			}
 		},
 		onShow() {
+			// 标记登录状态（缓存）
+			uni.setStorage({
+			    key: 'status',
+			    data: 'yes'
+			});
+			
 			// 获取用户的相关数据
-			// （待完善）
-			// （待完善）
-			// （待完善）
+			/// （待完善）
 			
 			// 用户的照片/视频应该至少有12张，否则将下拉提示文字显示为“没有更多数据”
 			if (this.user.share[1].length < 12) {
@@ -433,6 +550,17 @@
 			// 获取屏幕宽度、高度
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
 			this.screenWidth = uni.getSystemInfoSync().windowWidth;
+		},
+		onPageScroll(e) {
+			if (e.scrollTop === 0) {
+				this.scrollFlag = false;
+			}
+		},
+		onBackPress() {
+			// 返回app首页时删除登录状态
+			uni.removeStorage({
+			    key: 'status',
+			});
 		}
 	}
 </script>

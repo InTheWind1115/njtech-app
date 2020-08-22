@@ -178,7 +178,7 @@
 							phoneNumber: phoneNumber
 						},
 						success: res => {
-							// console.log(res.data);  // 观察验证码
+							console.log(res.data);  // 观察验证码
 							if (res.data.success) {
 								uni.showToast({
 									title: '验证码' + new RegExp(/.*\d(.*)/).exec(res.data.message)[1],  // 根据后端数据改写

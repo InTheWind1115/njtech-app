@@ -11,8 +11,8 @@
 		<view class="index-welcome u-f-ajc">Welcome!</view>
 		<!-- <view class="index-tips u-f-ajc">欢迎使用校友app，请选择登录账号或注册账号。</view> -->
 		<!-- 按钮部分 -->
-		<button class="index-btn index-btn-login" type="default" @tap="toLogin">登录</button>
-		<button class="index-btn index-btn-reg" type="default" @tap="toRegister">注册</button>
+		<button class="index-btn index-btn-login" type="default" @tap="navToLogin">登录</button>
+		<button class="index-btn index-btn-reg" type="default" @tap="navToRegister">注册</button>
 	</view>
 </template>
 
@@ -24,22 +24,35 @@
 			}
 		},
 		methods: {
-			// 跳转至登录页
-			toLogin() {
+			// 页面跳转函数
+			navToLogin() {
 				uni.navigateTo({
 					url: '../login/login'
 				});
 			},
-			// 跳转至注册页
-			toRegister() {
+			navToRegister() {
 				uni.navigateTo({
 					url: '../register/register'
 				});
+			},
+			navToPersonalCenter() {
+				uni.navigateTo({
+					url: '../personal_center/personal_center'
+				});
 			}
 		},
-		onLoad() {
+		onShow() {
 			// 获取屏幕高度
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		},
+		onLoad() {
+			var that = this;
+			uni.getStorage({
+			    key: 'status',
+			    success: (res) => {
+					that.navToPersonalCenter();
+			    }
+			});
 		}
 	}
 </script>

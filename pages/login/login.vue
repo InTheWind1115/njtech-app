@@ -158,6 +158,8 @@
 								icon: 'none'
 							});
 							if (res.data.message === '登录成功') {  // 登录成功
+								that.setLocalLoginUser();  // 记录登录用户
+								that.setLocalLoginPsw(password);  // 记录登录密码
 								that.redToPersonalCenter();
 							}
 						} else {
@@ -172,12 +174,43 @@
 				that.loading = false;  // 加载完毕
 				that.psw = '';  // 清空密码
 				that.disabled = true;  // 不能点击
-				
 			},
+			// 登录状态（本地缓存）
+			setLocalLoginUser() {
+				var that = this;
+				uni.setStorage({
+					key: 'user',
+					data: that.user
+				});
+			},
+			setLocalLoginPsw(psw) {
+				uni.setStorage({
+					key: 'psw',
+					data: psw
+				});
+			},
+			clearLocalData() {
+				uni.clearStorage();
+			}
 		},
-		onLoad() {
+		onShow() {
 			// 获取屏幕高度
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
+		},
+		onLoad() {
+			// this.clearLocalData();
+			uni.getStorage({
+				key: 'user',
+				success: (res) => {
+					this.user = res.data;
+				}
+			});
+			uni.getStorage({
+				key: 'psw',
+				success: (res) => {
+					this.psw = res.data;
+				}
+			});
 		}
 	}
 </script>
