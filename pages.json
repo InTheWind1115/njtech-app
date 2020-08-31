@@ -57,6 +57,18 @@
             "path" : "pages/deal_record/deal_record",
             "style" : {}
         }
+        ,{
+            "path" : "pages/friend_notice/friend_notice",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/friend_search/friend_search",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/friend_add_more/friend_add_more",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
