@@ -1,21 +1,14 @@
-<!-- 忘记密码 -->
+<!-- 添加好友详情 -->
 <template>
-	<view class="outer" :style="'height: ' + screenHeight + 'px'">
-		<navbar-easy text="找回密码"></navbar-easy>
+	<view>
+		
 	</view>
 </template>
 
 <script>
-	import navbarEasy from "../../components/common/navbar-easy.vue";
-	
 	export default {
-		// 注册组件
-		components: {
-			navbarEasy
-		},
 		data() {
 			return {
-				
 				
 				// 屏幕尺寸
 				screenWidth: 0,
@@ -23,11 +16,15 @@
 			}
 		},
 		methods: {
+			
 		},
 		onShow() {
 			// 获取屏幕尺寸
 			this.screenWidth = uni.getSystemInfoSync().windowWidth
 			this.screenHeight = uni.getSystemInfoSync().windowHeight
+		},
+		onLoad(option) {
+			console.log(option.uid)
 		}
 	}
 </script>

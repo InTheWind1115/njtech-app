@@ -679,7 +679,7 @@
 	.user-center-btn-bar-container {
 		padding: 0 64rpx;
 		border-radius: 35rpx;
-		box-shadow: 4rpx 4rpx 9rpx 6rpx rgba(0, 0, 0, 0.1);
+		box-shadow: 3rpx 3rpx 8rpx 5rpx rgba(0, 0, 0, 0.1);
 	}
 	.user-center-btn-bar-btngroup {
 		padding: 29rpx 0;
