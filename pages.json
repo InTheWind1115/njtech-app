@@ -69,6 +69,14 @@
             "path" : "pages/friend_add_more/friend_add_more",
             "style" : {}
         }
+        ,{
+            "path" : "pages/friend_my_search/friend_my_search",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/friend_chat/friend_chat",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
