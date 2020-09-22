@@ -1,5 +1,6 @@
+<!-- 搜索添加好友 -->
 <template>
-	<view>
+	<view class="outer" :style="'height: ' + screenHeight + 'px'">
 		
 	</view>
 </template>

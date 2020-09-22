@@ -10,7 +10,7 @@
 				mode="scaleToFill"
 				lazy-load></image>
 			</view>
-			<view class="user-add-item-text u-f-ajc">
+			<view class="user-add-item-text u-f-ac">
 				<view>
 					<view class="user-add-item-text-nickname">{{addHis_user.nickname}}</view>
 					<view class="user-add-item-text-profile">{{Profile}}</view>
@@ -128,6 +128,10 @@
 		font-size: 36rpx;
 		font-weight: 500;
 		width: 400rpx;
+		/* 昵称也许用不到省略 */
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.user-add-item-text-profile {
 		color: #929191;

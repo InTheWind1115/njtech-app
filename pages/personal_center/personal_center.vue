@@ -599,10 +599,9 @@
 		padding: 15rpx;
 		height: 60rpx;
 		line-height: 60rpx;
-		font-weight: bold;
 	}
 	.pop-item-active {
-		background-color: #DDDDDD;
+		background-color: #E5E7E6;
 	}
 	
 	

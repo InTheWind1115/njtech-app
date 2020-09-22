@@ -211,6 +211,9 @@
 					this.psw = res.data;
 				}
 			});
+			
+			//// 【仅调试！！】
+			// this.redToPersonalCenter();
 		}
 	}
 </script>
